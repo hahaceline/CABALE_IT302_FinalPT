@@ -7,10 +7,12 @@ require_once "../db_config.php";
 try {
 
     $stmt = $pdo->query("
-        SELECT employee_id, employee_name, position
+        SELECT
+            employee_id,
+            CONCAT(first_name, ' ', last_name) AS employee_name,
+            position
         FROM employees
-        WHERE status = 'Active'
-        ORDER BY employee_name ASC
+        ORDER BY first_name ASC, last_name ASC
     ");
 
     $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
